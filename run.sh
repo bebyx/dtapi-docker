@@ -11,6 +11,11 @@ docker exec -i db sh -c 'exec mysql -uroot dtapi' < ./sessions.sql
 docker restart db
 rm dtapi_full.sql sessions.sql
 
-
 docker build -t be -f Backend.Dockerfile .
-docker run --name=be -d -p 80:80 be
+docker run --name=be -d -p 8000:80 be
+
+docker build -t fe -f Frontend.Dockerfile .
+docker run --name=fe -d -p 8001:80 fe
+
+docker build -t proxy -f Proxy.Dockerfile .
+docker run --name=proxy -d -p 80:80 proxy
