@@ -1,8 +1,8 @@
-FROM debian:buster
+FROM debian:buster AS builder
 
 ARG WORK_DIR=/tmp/src/
 WORKDIR ${WORK_DIR}
-RUN apt update && apt install -y git apache2 php libapache2-mod-php php-mysql php-mbstring php-gd php-pdo php-xml php-cli php-curl php-http php-json
+RUN apt update && apt install -y git
 
 RUN git clone https://github.com/koseven/koseven.git
 RUN git clone https://github.com/yurkovskiy/dtapi.git
@@ -24,13 +24,9 @@ RUN sed -i "/'password'/ s|'dtapi'|'password'|" /var/www/dtapi/api/application/c
 RUN sed -i "/'base_url'/ s|'/'|'/api/'|" /var/www/dtapi/api/application/bootstrap.php
 RUN sed -i "/RewriteBase/ s|/|/api/|" /var/www/dtapi/api/.htaccess
 
+FROM php:apache
 COPY ./dtapi.conf  /etc/apache2/sites-available/dtapi.conf
-
-RUN a2ensite dtapi
-RUN a2dissite 000-default
-RUN a2enmod headers
-RUN a2enmod rewrite
-
-EXPOSE 80
-
-ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+COPY --from=builder --chown='www-data:www-data' /var/www/dtapi /var/www/dtapi
+RUN docker-php-ext-install pdo_mysql && \
+    a2ensite dtapi && a2dissite 000-default && \
+    a2enmod headers && a2enmod rewrite
