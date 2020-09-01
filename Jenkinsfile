@@ -10,7 +10,7 @@ pipeline {
                 //Install modules
                 sh '/usr/bin/npm install'
 
-                // Set environment
+                //Set environment
                 sh 'sed -i "s|https://dtapi.if.ua/api/|http://localhost/api/|" src/environments/environment.ts'
                 sh 'sed -i "s|https://dtapi.if.ua/api/|http://localhost/api/|" src/environments/environment.ts'
 
@@ -38,9 +38,9 @@ pipeline {
                 //Run httpd server in docker container
                 sh '''
                 if docker ps -a | grep fe; then
-                    docker rm -vf fe && docker run -dit --name fe -p 8050:80 -v "$PWD/dist/IF105":/usr/local/apache2/htdocs/ httpd:2.4
+                    docker rm -vf fe && docker run --net dt_net --ip 172.18.0.4 -dit --name fe -p 8050:80 -v "$PWD/dist/IF105":/usr/local/apache2/htdocs/ httpd:2.4
                 else
-                    docker run -dit --name fe -p 8050:80 -v "$PWD/dist/IF105":/usr/local/apache2/htdocs/ httpd:2.4
+                    docker run --net dt_net --ip 172.18.0.4 -dit --name fe -p 8050:80 -v "$PWD/dist/IF105":/usr/local/apache2/htdocs/ httpd:2.4
                 fi
                 '''
             }
