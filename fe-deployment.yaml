@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dtapi
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: dtapi
+        tier: frontend
+    spec:
+      containers:
+      - name: api
+        image: eu.gcr.io/trainingground-285720/fe
+        ports:
+        - containerPort: 80
