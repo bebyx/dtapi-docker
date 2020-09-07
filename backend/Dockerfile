@@ -19,7 +19,7 @@ RUN chmod 733 /var/www/dtapi/api/application/cache
 RUN chmod 722 /var/www/dtapi/api/application/logs
 
 RUN sed -i "s|'PDO_MySQL'|'PDO'|g" /var/www/dtapi/api/application/config/database.php
-RUN sed -i "/'dsn'/ s|mysql:host=localhost;dbname=dtapi2|mysql:host=172.18.0.2;dbname=dtapi|" /var/www/dtapi/api/application/config/database.php
+RUN sed -i "/'dsn'/ s|mysql:host=localhost;dbname=dtapi2|mysql:host=db;dbname=dtapi|" /var/www/dtapi/api/application/config/database.php
 RUN sed -i "/'password'/ s|'dtapi'|'password'|" /var/www/dtapi/api/application/config/database.php
 RUN sed -i "/'base_url'/ s|'/'|'/api/'|" /var/www/dtapi/api/application/bootstrap.php
 RUN sed -i "/RewriteBase/ s|/|/api/|" /var/www/dtapi/api/.htaccess
