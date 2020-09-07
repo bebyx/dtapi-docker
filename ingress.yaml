@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+spec:
+  rules:
+  - host: dtapi.test
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/api/"
+        backend:
+          serviceName: be
+          servicePort: 80
+      - pathType: Prefix
+        path: "/"
+        backend:
+          serviceName: fe
+          servicePort: 80
