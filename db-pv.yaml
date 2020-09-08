@@ -5,22 +5,20 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: manual
   capacity:
-    storage: 20Gi
+    storage: 2Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data/"
+    path: "/data/dtapi"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mariadb-pv-claim
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: 2Gi

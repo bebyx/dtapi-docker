@@ -30,9 +30,9 @@ spec:
         ports:
         - containerPort: 3306
         volumeMounts:
-        - name: mariadb-persistent-storage
+        - name: mariadb-pv-volume
           mountPath: /var/lib/mysql
       volumes:
-      - name: mariadb-persistent-storage
+      - name: mariadb-pv-volume
         persistentVolumeClaim:
           claimName: mariadb-pv-claim
