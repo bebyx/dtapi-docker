@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dtapi
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: dtapi
+        tier: backend
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: "true"
+        - name: MYSQL_DATABASE
+          value: dtapi
+        - name: MYSQL_USER
+          value: dtapi
+        - name: MYSQL_PASSWORD
+          value: password
+        name: db
+        image: mariadb
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mariadb-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mariadb-persistent-storage
+        persistentVolumeClaim:
+          claimName: mariadb-pv-claim
