@@ -2,18 +2,17 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: dtapi-k8s
 spec:
   rules:
-  - host: dtapi.test
   - http:
       paths:
-      - pathType: Prefix
-        path: "/api/"
+      - path: /api/*
         backend:
           serviceName: be
           servicePort: 80
-      - pathType: Prefix
-        path: "/"
+      - path: /*
         backend:
           serviceName: fe
           servicePort: 80

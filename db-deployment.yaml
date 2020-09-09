@@ -4,16 +4,15 @@ metadata:
   name: db
   namespace: default
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: dtapi
-      tier: backend
+      tier: database
   template:
     metadata:
       labels:
         app: dtapi
-        tier: backend
+        tier: database
     spec:
       containers:
       - env:

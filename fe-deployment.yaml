@@ -16,7 +16,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - name: api
+      - name: fe
         image: eu.gcr.io/trainingground-285720/fe
         ports:
         - containerPort: 80

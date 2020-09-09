@@ -4,12 +4,10 @@ metadata:
   name: db
   labels:
     app: dtapi
-    tier: backend
+    tier: database
 spec:
-  type: ClusterIP
   ports:
   - port: 3306
-    targetPort: 3306
   selector:
     app: dtapi
-    tier: backend
+    tier: database
