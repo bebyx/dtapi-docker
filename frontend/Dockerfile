@@ -8,8 +8,8 @@ RUN apt update && apt install -y git sudo
 RUN git clone https://github.com/yurkovskiy/IF-105.UI.dtapi.if.ua.io.git
 RUN npm i -g @angular/cli && npm i --prefix ./IF-105.UI.dtapi.if.ua.io
 
-RUN sed -i "s|https://dtapi.if.ua/api/|http://192.168.99.104/api/|" ./IF-105.UI.dtapi.if.ua.io/src/environments/environment.ts && \
-    sed -i "s|https://dtapi.if.ua/api/|http://192.168.99.104/api/|" ./IF-105.UI.dtapi.if.ua.io/src/environments/environment.prod.ts
+RUN sed -i "s|https://dtapi.if.ua/api/|http://bebyx.ssh.if.ua/api/|" ./IF-105.UI.dtapi.if.ua.io/src/environments/environment.ts && \
+    sed -i "s|https://dtapi.if.ua/api/|http://bebyx.ssh.if.ua/api/|" ./IF-105.UI.dtapi.if.ua.io/src/environments/environment.prod.ts
 
 RUN cd ./IF-105.UI.dtapi.if.ua.io/ && ng build --prod
 
